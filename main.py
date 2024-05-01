@@ -5,7 +5,7 @@ import time
 import pygame
 from datetime import datetime
 
-# Constants
+#Константы
 FIELD_WIDTH = 10
 FIELD_HEIGHT = 20
 CELL_SIZE = 30
@@ -13,12 +13,12 @@ PREVIEW_SIZE = 5
 PREVIEW_CELL_SIZE = 30
 WHITE_CELL = "#ffffff"
 SHAPES = [
-    [[1, 1, 1, 1]],  # Stick
-    [[1, 1], [1, 1]],  # Square
-    [[1, 0, 0], [1, 1, 1]],  # L-shape
-    [[0, 0, 1], [1, 1, 1]],  # L-shape mirrored
-    [[1, 1, 0], [0, 1, 1]],  # Z-shape
-    [[0, 1, 1], [1, 1, 0]]  # Z-shape mirrored
+    [[1, 1, 1, 1]],  #Палка
+    [[1, 1], [1, 1]],  #Квадрат
+    [[1, 0, 0], [1, 1, 1]],  #L
+    [[0, 0, 1], [1, 1, 1]],  #L зеркальная
+    [[1, 1, 0], [0, 1, 1]],  #Z
+    [[0, 1, 1], [1, 1, 0]]   #Z зеркальная
 ]
 COLORS = ['cyan', 'purple', 'red', 'green', 'yellow', 'blue', 'orange']
 
@@ -66,7 +66,7 @@ class Tetris:
                                     fill="red", font=("Helvetica", 40))
         else:
             self.remaining_time_label.config(
-                text=f"Оставшееся время: {remaining_time:.2f} сек")  # Обновляем текст на метке
+                text=f"Оставшееся время: {remaining_time:.2f} сек")
             self.remaining_time_id = self.master.after(100, self.update_remaining_time)
 
     def start_game(self, event=None):
@@ -151,19 +151,17 @@ class Tetris:
                 high_scores = file.readlines()
 
             if high_scores:
-                valid_scores = []  # Список для хранения допустимых счетов
+                valid_scores = []
                 for line in high_scores:
                     try:
-                        # Проверяем, что строка имеет правильную структуру
                         parts = line.strip().split(", ")
                         score_part = parts[0].split(": ")
-                        score = int(score_part[1])  # Преобразуем счет в целое число
-                        valid_scores.append((score, line.strip()))  # Сохраняем корректные записи
+                        score = int(score_part[1])
+                        valid_scores.append((score, line.strip()))
                     except (IndexError, ValueError):
                         print(f"Пропускаем некорректную запись: {line.strip()}")
 
                 if valid_scores:
-                    # Ищем запись с максимальным счетом
                     max_score_record = max(valid_scores, key=lambda x: x[0])
                     self.max_score_label = tk.Label(self.frame, text=f"Максимальный {max_score_record[1]}")
                     self.max_score_label.pack(side=tk.TOP, pady=10)
@@ -332,7 +330,7 @@ class Tetris:
     def play_background_music(self):
         pygame.mixer.init()
         pygame.mixer.music.load("background_music.wav")
-        pygame.mixer.music.play(-1)  # Циклическое воспроизведение
+        pygame.mixer.music.play(-1)  #Цикл
 
     def play_sound_effect(self, sound):
         pygame.mixer.init()
@@ -384,3 +382,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     game = Tetris(root)
     root.mainloop()
+    
